@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block title %}
+  <ul class="list-group">
+    <li class="list-group-item"><strong> Home - Todo List </strong></li>
+  </ul>
+{% endblock %}
+
+{% block content %}
+
+  <div class="d-flex justify-content-between align-items-center">
+    <h1>Todo List</h1>
+    <div class="d-flex">
+      <form method="get" action="{% url 'todolist:home' %}" class="form-inline">
+        <div class="form-group mr-2">
+          <label for="tag" class="mr-2">Filter by Tag:</label>
+          <select name="tag" id="tag" class="form-control">
+            <option value="">All</option>
+            {% for tag in tags %}
+              <option value="{{ tag.name }}" {% if request.GET.tag == tag.name %}
+                      selected {% endif %}>{{ tag.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="form-group mr-2">
+          <label for="search" class="mr-2">Search:</label>
+          <input type="text" name="search" id="search" class="form-control" value="{{ search_query }}">
+        </div>
+        <button type="submit" class="btn btn-primary">Apply Filters</button>
+      </form>
+      <a href="{% url 'todolist:task-create' %}" class="btn btn-info ml-3">Add New Task</a>
+    </div>
+  </div>
+
+  {% if no_tasks_message %}
+    <div class="alert alert-warning" role="alert">
+      {{ no_tasks_message }}
+    </div>
+  {% else %}
+    <ul class="sidebar-nav list-group">
+      {% for task in tasks %}
+        <li class="list-group-item">
+          <strong>{{ task.content }}</strong> ({{ task.created_at }})
+          {% if task.deadline %}
+            - Deadline: {{ task.deadline }}
+          {% endif %}
+
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              Status:
+              {% if task.is_done %}
+                <span style="color: green;">✅ Done</span>
+              {% else %}
+                <span style="color: red;">❌ Not Done</span>
+              {% endif %}
+            </div>
+
+
+            <div>
+              {% if task.is_done %}
+                <a href="{% url 'todolist:toggle-task' task.pk %}" class="btn btn-secondary active">
+                  Undo
+                </a>
+              {% else %}
+                <a href="{% url 'todolist:toggle-task' task.pk %}" class="btn btn-success active">
+                  Complete
+                </a>
+              {% endif %}
+            </div>
+          </div>
+
+          <br>
+          <p style="color: grey">
+            <strong>Tags:</strong>
+            {% if task.tags.all %}
+              <span style="background-color: lightgray" class="text-dark p-1 rounded-lg">{{ task.tags.all|join:", " }}</span>
+            {% else %}
+              No tags assigned
+            {% endif %}
+          </p>
+          <a href="{% url 'todolist:task-edit' task.pk %}"
+             class="btn btn-link btn-sm active"><strong>Update</strong></a>
+          |
+          <a href="{% url 'todolist:task-delete' task.pk %}" class="btn btn-link btn-sm active">Delete</a>
+        </li>
+        <br>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endblock %}

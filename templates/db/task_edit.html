@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}
+  <ul class="list-group">
+    <li class="list-group-item"><strong> Edit Task - Todo List </strong></li>
+  </ul>
+{% endblock %}
+
+{% block content %}
+  <h1>Edit Task</h1>
+  <form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+    <a href="{% url 'todolist:home' %}" class="btn btn-secondary">Cancel</a>
+  </form>
+{% endblock %}

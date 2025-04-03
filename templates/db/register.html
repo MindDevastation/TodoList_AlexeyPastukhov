@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block title %}
+  <ul class="list-group">
+    <li class="list-group-item"><strong> Register - Todo List </strong></li>
+  </ul>
+{% endblock %}
+
+
+{% block content %}
+  <h1>Register</h1>
+  <form method="POST">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <button type="submit" class="btn btn-dark">Register</button>
+
+  </form>
+  <br>
+  <p>Already have an account? <a href="{% url 'login' %}" class="btn btn-primary">Log in</a></p>
+
+{% endblock %}

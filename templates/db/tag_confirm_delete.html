@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}
+  <ul class="list-group">
+    <li class="list-group-item"><strong> Confirm Deletion - Tag "{{ tag.name }}" </strong></li>
+  </ul>
+{% endblock %}
+
+{% block content %}
+  <br>
+  <h1>Are you sure you want to delete the tag "{{ tag.name }}"?</h1>
+  <p class="font-italic">You can not undo this action</p>
+  <form action="" method="post">
+    {% csrf_token %}
+    <input type="submit" value="Yes" class="btn btn-danger">
+    <a href="{% url 'todolist:tag-list' %}" class="btn btn-secondary">Cancel</a>
+  </form>
+{% endblock %}
