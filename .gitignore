@@ -1,0 +1,55 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+
+# Django stuff
+*.sqlite3
+*.log
+
+# PyCharm
+.idea/
+*.iml
+
+# Migrations
+*/migrations/__pycache__/
+*/migrations/*.pyc
+*/migrations/*.pyo
+*/migrations/*.log
+
+# Static & media files
+staticfiles/
+media/
+
+# Environment variables
+.env
+
+# Compiled files
+*.egg-info/
+*.egg
+
+# Cache files
+*.cache
+*.mo
+*.pot
+
+# Coverage & test reports
+htmlcov/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+
+# Logs and databases
+*.log
+*.sqlite3
+
+# IDEs
+.vscode/
+*.sublime-workspace
